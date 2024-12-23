@@ -1,0 +1,249 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap');
+
+:root {
+  --bg-color: hsl(0, 0%, 98%);
+  --todo-bg: hsl(0, 0%, 100%);
+  --text-color: hsl(235, 19%, 35%);
+  --text-color-light: hsl(236, 9%, 61%);
+  --border-color: hsl(233, 11%, 84%);
+  --hover-color: hsl(235, 19%, 35%);
+  --checkbox-border: hsl(233, 11%, 84%);
+  --check-background: linear-gradient(135deg, hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+}
+
+.dark-theme {
+  --bg-color: hsl(235, 21%, 11%);
+  --todo-bg: hsl(235, 24%, 19%);
+  --text-color: hsl(234, 39%, 85%);
+  --text-color-light: hsl(234, 11%, 52%);
+  --border-color: hsl(237, 14%, 26%);
+  --hover-color: hsl(236, 33%, 92%);
+  --checkbox-border: hsl(237, 14%, 26%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Josefin Sans', sans-serif;
+  background-color: var(--bg-color);
+  min-height: 100vh;
+  transition: background-color 0.3s ease;
+  background-image: url('../images/bg-desktop-light.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 300px;
+  background-position: top center;
+}
+
+body.dark-theme {
+  background-image: url('../images/bg-desktop-dark.jpg');
+}
+
+@media (max-width: 375px) {
+  body {
+    background-image: url('../images/bg-mobile-light.jpg');
+  }
+
+  body.dark-theme {
+    background-image: url('../images/bg-mobile-dark.jpg');
+  }
+}
+
+.container {
+  max-width: 540px;
+  margin: 0 auto;
+  padding: 70px 24px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+h1 {
+  color: white;
+  letter-spacing: 12px;
+  font-size: 28px;
+}
+
+#theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.todo-input-container,
+.todo-list-container {
+  background-color: var(--todo-bg);
+  border-radius: 5px;
+  box-shadow: 0 35px 50px -15px rgba(0, 0, 0, 0.1);
+}
+
+.todo-input-container {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+#todo-input {
+  width: 100%;
+  border: none;
+  background: none;
+  color: var(--text-color);
+  font-size: 18px;
+  padding-left: 20px;
+  outline: none;
+}
+
+#todo-input::placeholder {
+  color: var(--text-color-light);
+}
+
+.checkbox {
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--checkbox-border);
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+}
+
+.checkbox:hover {
+  background: var(--check-background);
+}
+
+.checkbox:hover::before {
+  content: '';
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  right: 1px;
+  bottom: 1px;
+  background: var(--todo-bg);
+  border-radius: 50%;
+}
+
+.checkbox.checked {
+  background: var(--check-background);
+}
+
+.checkbox.checked::after {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 5px;
+  width: 6px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid var(--border-color);
+  gap: 12px;
+  background-color: var(--todo-bg);
+}
+
+.todo-item span {
+  flex: 1;
+  color: var(--text-color);
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.todo-item.completed span {
+  color: var(--text-color-light);
+  text-decoration: line-through;
+}
+
+.delete-btn {
+  opacity: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.todo-item:hover .delete-btn {
+  opacity: 1;
+}
+
+.todo-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  color: var(--text-color-light);
+  font-size: 14px;
+}
+
+.filters {
+  display: flex;
+  gap: 15px;
+}
+
+.filter-btn {
+  background: none;
+  border: none;
+  color: var(--text-color-light);
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.filter-btn:hover {
+  color: var(--hover-color);
+}
+
+.filter-btn.active {
+  color: hsl(220, 98%, 61%);
+}
+
+#clear-completed {
+  background: none;
+  border: none;
+  color: var(--text-color-light);
+  cursor: pointer;
+}
+
+#clear-completed:hover {
+  color: var(--hover-color);
+}
+
+.drag-drop-text {
+  text-align: center;
+  color: var(--text-color-light);
+  margin-top: 40px;
+  font-size: 14px;
+}
+
+@media (max-width: 375px) {
+  .container {
+    padding: 48px 24px;
+  }
+
+  .filters {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -60px;
+    justify-content: center;
+    background-color: var(--todo-bg);
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 35px 50px -15px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.hidden {
+  display: none;
+}
